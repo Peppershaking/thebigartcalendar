@@ -19,7 +19,7 @@ const hostGrotesk = Host_Grotesk({
 });
 
 const oxygen = Oxygen({
-  weight: ["300"],
+  weight: ["300", "700"],
   subsets: ["latin"],
   variable: "--font-oxygen",
 });
@@ -39,7 +39,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${hostGrotesk.variable} ${oxygen.variable} h-full antialiased`}
     >
-      <body className="h-full bg-white text-zinc-900">{children}</body>
+      <body className="h-full text-zinc-900" style={{ backgroundColor: '#FBFAF6' }}>{children}</body>
     </html>
   );
 }

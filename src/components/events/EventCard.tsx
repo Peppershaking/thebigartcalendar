@@ -4,7 +4,6 @@ import { ArtEvent } from '@/types';
 
 const CARD_COLORS = ['#E06927', '#EFCEEE', '#C8CC17', '#BFDBD8'];
 
-/** Deterministic color from event id — same event always gets same color */
 function getCardColor(id: string): string {
   let hash = 0;
   for (let i = 0; i < id.length; i++) {
@@ -24,8 +23,8 @@ export default function EventCard({ event, onClick }: Props) {
   return (
     <button
       onClick={() => onClick(event)}
-      className="text-left flex-none"
-      style={{ width: 346, height: 460 }}
+      className="text-left flex-none h-full"
+      style={{ width: 346 }}
     >
       <div
         className="w-full h-full flex flex-col"
@@ -34,6 +33,7 @@ export default function EventCard({ event, onClick }: Props) {
           borderRadius: 24,
           padding: 24,
           gap: 16,
+          maxHeight: 460,
         }}
       >
         {/* Title */}
@@ -50,11 +50,8 @@ export default function EventCard({ event, onClick }: Props) {
           {event.title}
         </h3>
 
-        {/* Image */}
-        <div
-          className="flex-none overflow-hidden"
-          style={{ height: 196, borderRadius: 12 }}
-        >
+        {/* Image — grows to fill available space */}
+        <div className="flex-1 min-h-0 overflow-hidden" style={{ borderRadius: 12 }}>
           {event.image ? (
             <img
               src={event.image}
@@ -68,14 +65,14 @@ export default function EventCard({ event, onClick }: Props) {
 
         {/* Description */}
         <p
-          className="flex-1 overflow-hidden text-black"
+          className="flex-none text-black"
           style={{
             fontFamily: 'var(--font-oxygen)',
             fontWeight: 300,
             fontSize: 16,
             lineHeight: '24px',
             display: '-webkit-box',
-            WebkitLineClamp: 4,
+            WebkitLineClamp: 3,
             WebkitBoxOrient: 'vertical',
             overflow: 'hidden',
           }}
@@ -85,7 +82,7 @@ export default function EventCard({ event, onClick }: Props) {
 
         {/* Details link */}
         <span
-          className="flex-none text-black underline-offset-2 hover:underline"
+          className="flex-none text-black hover:underline underline-offset-2"
           style={{
             fontFamily: 'var(--font-host-grotesk)',
             fontWeight: 600,

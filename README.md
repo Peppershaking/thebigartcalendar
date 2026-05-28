@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Big Art Calendar
 
-## Getting Started
+An informational portal for art events across Europe. The calendar is the main page — every visitor lands there and can browse upcoming exhibitions, workshops, lectures, short courses, competitions, and meetups.
 
-First, run the development server:
+**The problem it solves:** art lovers and creative professionals often miss events or find out too late to plan travel and book tickets at a good price. This portal gives them a single place to discover what's happening, plan ahead, and never miss an event that matters to them.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+**Audience:** artists, designers, curators, and anyone with a general interest in the arts across Europe.
+
+**Data sources:** art event databases — specific integrations to be defined.
+
+---
+
+## Folder structure
+
+```
+src/
+├── app/                    # Next.js App Router — pages and layouts
+├── components/
+│   ├── calendar/           # Calendar UI (grid, date strip, month strip, badges)
+│   ├── events/             # Event cards, modals, and preview components
+│   ├── filters/            # Filter bar
+│   ├── layout/             # App-wide layout (header)
+│   ├── mobile/             # Mobile-specific views (agenda)
+│   └── ui/                 # Shared UI primitives (shadcn/ui components)
+├── data/                   # Mock event data (temporary, until real sources are wired)
+├── lib/                    # Utility functions (calendar logic, cn helper)
+└── types/                  # Shared TypeScript types
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Layer | Choice |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| UI library | React 19 |
+| Styling | Tailwind CSS v4 |
+| Components | shadcn/ui, Base UI |
+| Icons | lucide-react |
+| Deployment | Vercel |
 
-## Learn More
+### Constraints
 
-To learn more about Next.js, take a look at the following resources:
+- **SEO-first.** All content must be server-rendered and crawler-accessible (Google, GPT Search, etc.). Client-only rendering should be avoided for anything that carries indexable content.
+- **Mobile-first.** Layouts are designed for mobile and scaled up to desktop — not the other way around.
+- **No authentication at launch.** Email marketing subscription opt-in may be added later as the only user account surface.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Running the project
 
-## Deploy on Vercel
+```bash
+npm install
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Other scripts:
+
+```bash
+npm run build   # production build
+npm run start   # serve the production build locally
+npm run lint    # run ESLint
+```

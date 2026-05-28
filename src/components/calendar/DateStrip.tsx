@@ -2,10 +2,10 @@
 
 import { useRef, useEffect } from 'react';
 
-const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const DAY_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 interface Props {
-  eventDates: string[]; // YYYY-MM-DD, already filtered & sorted
+  eventDates: string[];
   selectedDate: string | null;
   onChange: (date: string) => void;
 }
@@ -14,7 +14,6 @@ export default function DateStrip({ eventDates, selectedDate, onChange }: Props)
   const stripRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef<HTMLButtonElement>(null);
 
-  // Scroll active date into view when it changes
   useEffect(() => {
     if (activeRef.current && stripRef.current) {
       activeRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
@@ -23,7 +22,10 @@ export default function DateStrip({ eventDates, selectedDate, onChange }: Props)
 
   if (eventDates.length === 0) {
     return (
-      <div className="flex-none h-14 flex items-center px-6 border-b border-zinc-200 text-sm text-zinc-400">
+      <div
+        className="flex-none h-14 flex items-center px-6 border-b border-zinc-200"
+        style={{ fontFamily: 'var(--font-oxygen)', fontWeight: 300, fontSize: 18, color: '#a1a1aa' }}
+      >
         No events this month
       </div>
     );
@@ -37,7 +39,7 @@ export default function DateStrip({ eventDates, selectedDate, onChange }: Props)
       {eventDates.map((dateStr) => {
         const [y, m, d] = dateStr.split('-').map(Number);
         const date = new Date(y, m - 1, d);
-        const dayName = DAY_NAMES[date.getDay()];
+        const dayShort = DAY_SHORT[date.getDay()];
         const isActive = dateStr === selectedDate;
 
         return (
@@ -45,17 +47,16 @@ export default function DateStrip({ eventDates, selectedDate, onChange }: Props)
             key={dateStr}
             ref={isActive ? activeRef : null}
             onClick={() => onChange(dateStr)}
-              style={{
+            className="flex-none flex items-baseline gap-1.5 whitespace-nowrap transition-colors"
+            style={{
               fontFamily: 'var(--font-oxygen)',
-              fontWeight: 300,
-              fontSize: '18px',
+              fontWeight: isActive ? 700 : 300,
+              fontSize: 18,
+              color: isActive ? '#000' : '#a1a1aa',
             }}
-            className={`flex-none flex items-baseline gap-1.5 whitespace-nowrap transition-colors ${
-              isActive ? 'text-zinc-900' : 'text-zinc-400 hover:text-zinc-600'
-            }`}
           >
-            <span className={isActive ? 'font-bold' : ''}>{d}</span>
-            <span>{dayName}</span>
+            <span>{d}</span>
+            <span>{dayShort}</span>
           </button>
         );
       })}

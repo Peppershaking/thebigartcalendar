@@ -63,7 +63,7 @@ export default function HomePage() {
   return (
     <>
       {/* ── Desktop ─────────────────────────────────────── */}
-      <div className="hidden md:flex flex-col h-screen overflow-hidden bg-zinc-50">
+      <div className="hidden md:flex flex-col h-screen overflow-hidden" style={{ backgroundColor: '#FBFAF6' }}>
         <AppHeader
           year={year}
           onYearChange={setYear}
@@ -80,27 +80,22 @@ export default function HomePage() {
         />
 
         {/* Event list */}
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 min-h-0 px-6 py-4">
           {selectedEvents.length === 0 ? (
-            <div className="flex items-center justify-center h-48 text-zinc-400 text-sm">
+            <div className="flex items-center justify-center h-full text-zinc-400 text-sm">
               {eventDates.length === 0
                 ? 'No events this month'
                 : 'Select a date above'}
             </div>
           ) : (
-            <div className="px-6 py-6">
-              <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-4">
-                {selectedEvents.length} event{selectedEvents.length !== 1 ? 's' : ''}
-              </p>
-              <div className="flex flex-wrap gap-4">
-                {selectedEvents.map((event) => (
-                  <EventCard
-                    key={event.id}
-                    event={event}
-                    onClick={setModalEvent}
-                  />
-                ))}
-              </div>
+            <div className="flex gap-4 h-full">
+              {selectedEvents.map((event) => (
+                <EventCard
+                  key={event.id}
+                  event={event}
+                  onClick={setModalEvent}
+                />
+              ))}
             </div>
           )}
         </main>

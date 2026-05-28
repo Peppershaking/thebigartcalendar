@@ -16,7 +16,7 @@ export default function AppHeader({ year, onYearChange, filters, onFiltersChange
   return (
     <div className="flex-none">
       {/* Title row */}
-      <div className="flex items-start justify-between px-6 pt-5 pb-3">
+      <div className="flex items-start justify-between px-6 pt-[2vh] pb-[1vh]">
         <button className="text-xs font-medium text-zinc-400 hover:text-zinc-700 tracking-widest uppercase mt-1 transition-colors">
           Menu
         </button>
@@ -26,8 +26,8 @@ export default function AppHeader({ year, onYearChange, filters, onFiltersChange
           style={{
             fontFamily: 'var(--font-host-grotesk)',
             fontWeight: 800,
-            fontSize: '82px',
-            lineHeight: '76px',
+            fontSize: 'clamp(42px, 6.5vh, 82px)',
+            lineHeight: 'clamp(38px, 6vh, 76px)',
             letterSpacing: '-2px',
           }}
         >
@@ -40,7 +40,7 @@ export default function AppHeader({ year, onYearChange, filters, onFiltersChange
       </div>
 
       {/* Year + filters row */}
-      <div className="flex items-center justify-between px-6 pb-4">
+      <div className="flex items-center justify-between px-6 pb-[1.5vh]">
         <div className="relative inline-flex items-center gap-1">
           <select
             value={year}
