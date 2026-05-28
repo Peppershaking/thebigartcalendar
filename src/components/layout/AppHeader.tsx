@@ -44,7 +44,7 @@ export default function AppHeader({ year, onYearChange, filters, onFiltersChange
       <div className="flex items-center justify-between px-6 pb-[1.5vh]">
         <FilterSelect
           value={String(year)}
-          onChange={(v) => onYearChange(Number(v))}
+          onChange={(v) => onYearChange(Number(v ?? year))}
           options={YEARS.map((y) => ({ value: String(y), label: String(y) }))}
         />
 

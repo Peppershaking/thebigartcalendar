@@ -20,7 +20,7 @@ export default function FilterBar({ filters, onChange }: Props) {
     <div className="flex items-center gap-2 flex-wrap">
       <FilterSelect
         value={filters.city}
-        onChange={(v) => onChange({ ...filters, city: v })}
+        onChange={(v) => onChange({ ...filters, city: v ?? 'all' })}
         options={[
           { value: 'all', label: 'All Cities' },
           ...CITIES.map((c) => ({ value: c, label: c })),
@@ -28,7 +28,7 @@ export default function FilterBar({ filters, onChange }: Props) {
       />
       <FilterSelect
         value={filters.type}
-        onChange={(v) => onChange({ ...filters, type: v as EventType | 'all' })}
+        onChange={(v) => onChange({ ...filters, type: (v ?? 'all') as EventType | 'all' })}
         options={ALL_TYPES}
       />
     </div>

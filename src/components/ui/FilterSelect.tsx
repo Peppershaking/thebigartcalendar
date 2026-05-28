@@ -9,7 +9,7 @@ export function FilterSelect({
   options,
 }: {
   value: string;
-  onChange: (v: string) => void;
+  onChange: (v: string | null) => void;
   options: { value: string; label: string }[];
 }) {
   const label = options.find((o) => o.value === value)?.label ?? value;
