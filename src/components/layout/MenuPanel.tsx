@@ -1,0 +1,82 @@
+'use client';
+
+import { useEffect } from 'react';
+import Link from 'next/link';
+import { Minus } from 'lucide-react';
+
+interface Props {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const NAV_LINKS = [
+  { label: 'Calendar', href: '/' },
+  { label: 'About',    href: '/about' },
+  { label: 'Blog',     href: '/blog' },
+  { label: 'Contact',  href: '/contact' },
+];
+
+const linkStyle = {
+  fontFamily: 'var(--font-host-grotesk)',
+  fontWeight: 800,
+  fontSize: 32,
+  lineHeight: '32px',
+  letterSpacing: '-0.64px',
+} as const;
+
+export default function MenuPanel({ isOpen, onClose }: Props) {
+  // Close on Escape
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [onClose]);
+
+  // Prevent body scroll while open
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
+  return (
+    <nav
+      aria-label="Site navigation"
+      aria-hidden={!isOpen}
+      className={[
+        'fixed top-0 right-0 h-screen bg-white z-50',
+        'w-full md:w-[348px]',
+        'flex flex-col items-end',
+        'pl-8 pr-4 py-4',
+        'transition-transform duration-300 ease-in-out',
+        isOpen ? 'translate-x-0' : 'translate-x-full',
+      ].join(' ')}
+    >
+      {/* Close button */}
+      <button
+        onClick={onClose}
+        aria-label="Close menu"
+        className="flex items-center justify-center size-[54px] text-black hover:opacity-60 transition-opacity shrink-0"
+      >
+        <Minus className="size-7" strokeWidth={2} />
+      </button>
+
+      {/* Nav links */}
+      <div className="flex flex-col items-end mt-8" style={{ gap: 17 }}>
+        {NAV_LINKS.map(({ label, href }) => (
+          <Link
+            key={label}
+            href={href}
+            onClick={onClose}
+            tabIndex={isOpen ? undefined : -1}
+            className="text-black hover:opacity-50 transition-opacity"
+            style={linkStyle}
+          >
+            {label}
+          </Link>
+        ))}
+      </div>
+    </nav>
+  );
+}

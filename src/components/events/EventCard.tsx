@@ -24,8 +24,7 @@ export default function EventCard({ event, onClick, fullWidth = false }: Props) 
   return (
     <button
       onClick={() => onClick(event)}
-      className={fullWidth ? 'w-full text-left' : 'text-left flex-none h-full'}
-      style={fullWidth ? undefined : { width: 346 }}
+      className="w-full text-left"
     >
       <div
         className="w-full flex flex-col"
@@ -34,7 +33,7 @@ export default function EventCard({ event, onClick, fullWidth = false }: Props) 
           borderRadius: 24,
           padding: 24,
           gap: 16,
-          height: fullWidth ? 460 : '100%',
+          height: 460,
           maxHeight: 460,
         }}
       >

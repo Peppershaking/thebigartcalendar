@@ -30,7 +30,7 @@ export default function MonthStrip({ month, onChange, scrollable = false }: Prop
     <div
       ref={stripRef}
       className={`flex-none flex items-center border-t border-b border-[#b1b1b1] h-[84px] ${
-        scrollable ? 'overflow-x-auto scrollbar-hide gap-[44px] px-6' : 'justify-center gap-6'
+        scrollable ? 'overflow-x-auto scrollbar-hide gap-[44px] px-6' : 'justify-between px-[120px]'
       }`}
     >
       {MONTHS.map((name, i) => {
@@ -45,7 +45,7 @@ export default function MonthStrip({ month, onChange, scrollable = false }: Prop
               fontFamily: 'var(--font-oxygen)',
               fontWeight: isActive ? 700 : 300,
               fontSize: 24,
-              color: isActive ? '#000' : '#a1a1aa',
+              color: '#000000',
             }}
           >
             {name}

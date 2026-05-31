@@ -9,8 +9,9 @@ export interface ArtEvent {
   id: string;
   title: string;
   type: EventType;
-  date: string; // YYYY-MM-DD
-  startTime: string;
+  date: string;     // YYYY-MM-DD — maps to startDate
+  endDate?: string; // YYYY-MM-DD — for multi-day / spanning events
+  startTime?: string;
   endTime?: string;
   venue: string;
   city: string;

@@ -42,7 +42,7 @@ export default function DateStrip({ eventDates, selectedDate, onChange, fullDayN
   return (
     <div
       ref={stripRef}
-      className="flex-none flex items-center gap-8 overflow-x-auto border-b border-[#b1b1b1] px-6 h-14 scrollbar-hide"
+      className={`flex-none flex items-center gap-8 border-b border-[#b1b1b1] px-6 h-14 scrollbar-hide ${fullDayNames ? 'overflow-x-auto' : 'justify-center overflow-x-auto'}`}
     >
       {eventDates.map((dateStr) => {
         const [y, m, d] = dateStr.split('-').map(Number);
@@ -60,7 +60,7 @@ export default function DateStrip({ eventDates, selectedDate, onChange, fullDayN
               fontFamily: 'var(--font-oxygen)',
               fontWeight: isActive ? 700 : 300,
               fontSize: 18,
-              color: isActive ? '#000' : '#a1a1aa',
+              color: '#000000',
             }}
           >
             <span>{d}</span>

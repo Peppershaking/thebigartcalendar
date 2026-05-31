@@ -1,15 +1,16 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, Plus } from 'lucide-react';
 import { ArtEvent, CalendarFilters, EventType } from '@/types';
 import { FilterSelect } from '@/components/ui/FilterSelect';
 import MonthStrip from '@/components/calendar/MonthStrip';
 import DateStrip from '@/components/calendar/DateStrip';
 import EventCard from '@/components/events/EventCard';
 import { eventTypeColors } from '@/components/calendar/EventTypeBadge';
-import { EVENT_TYPES, CITIES } from '@/data/mockEvents';
 import EventModal from '@/components/events/EventModal';
+
+const EVENT_TYPES: EventType[] = ['gallery', 'performance', 'fair', 'auction', 'workshop'];
 
 const YEARS = [2024, 2025, 2026, 2027, 2028];
 
@@ -29,6 +30,8 @@ interface Props {
   selectedEvents: ArtEvent[];
   filters: CalendarFilters;
   onFiltersChange: (f: CalendarFilters) => void;
+  cities: string[];
+  onMenuOpen: () => void;
 }
 
 const titleStyle = {
@@ -56,6 +59,8 @@ export default function MobileAgenda({
   selectedEvents,
   filters,
   onFiltersChange,
+  cities,
+  onMenuOpen,
 }: Props) {
   const [modalEvent, setModalEvent] = useState<ArtEvent | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -78,7 +83,14 @@ export default function MobileAgenda({
         <h1 className="text-center text-black lowercase" style={{ ...titleStyle, transform: 'translateY(5px)' }}>
           the big<br />art calendar.
         </h1>
-        <button className="absolute right-6 text-black" style={{ ...navBtnStyle, top: 19 }}>Menu</button>
+        <button
+          onClick={onMenuOpen}
+          aria-label="Open menu"
+          className="absolute right-[6px] flex items-center justify-center size-[54px] text-black hover:opacity-60 transition-opacity"
+          style={{ top: 6 }}
+        >
+          <Plus className="size-7" strokeWidth={2} />
+        </button>
 
         {/* Border fades in when scrolled — no layout shift */}
         <div
@@ -99,7 +111,7 @@ export default function MobileAgenda({
             size="sm"
             value={filters.city}
             onChange={(v) => onFiltersChange({ ...filters, city: v ?? 'all' })}
-            options={[{ value: 'all', label: 'All Cities' }, ...CITIES.map((c) => ({ value: c, label: c }))]}
+            options={[{ value: 'all', label: 'All Cities' }, ...cities.map((c) => ({ value: c, label: c }))]}
           />
           <FilterSelect
             size="sm"
