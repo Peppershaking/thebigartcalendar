@@ -41,6 +41,15 @@ export default function MenuPanel({ isOpen, onClose }: Props) {
   }, [isOpen]);
 
   return (
+    <>
+      {/* Backdrop — covers the rest of the screen, click to close */}
+      <div
+        aria-hidden="true"
+        onClick={onClose}
+        className="fixed inset-0 z-40 transition-opacity duration-300"
+        style={{ opacity: isOpen ? 1 : 0, pointerEvents: isOpen ? 'auto' : 'none' }}
+      />
+
     <nav
       aria-label="Site navigation"
       aria-hidden={!isOpen}
@@ -78,5 +87,6 @@ export default function MenuPanel({ isOpen, onClose }: Props) {
         ))}
       </div>
     </nav>
+    </>
   );
 }
