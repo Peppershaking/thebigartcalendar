@@ -14,6 +14,13 @@ export function stripHtml(html: string): string {
   return html
     .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
     .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, '')
+    // Preserve image URLs inline before stripping tags so Claude can see them
+    .replace(/<img\b[^>]*?(?:src|data-src)=["']([^"']+)["'][^>]*>/gi, (_, src) => {
+      const absolute = src.startsWith('//') ? `https:${src}` : src;
+      // Strip Shopify width params — the base URL is the canonical image
+      const clean = absolute.split('?')[0];
+      return ` [IMAGE: ${clean}] `;
+    })
     .replace(/<[^>]+>/g, ' ')
     .replace(/&nbsp;/g, ' ')
     .replace(/&amp;/g, '&')
